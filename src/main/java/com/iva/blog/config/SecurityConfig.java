@@ -1,6 +1,6 @@
 package com.iva.blog.config;
 
-import com.iva.blog.services.UsersDetailsService;
+import com.iva.blog.security.UsersDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,7 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
+/**
+ * Конфигурация безопасности для веб-приложения с использованием Spring Security.
+ */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -23,6 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.usersDetailsService = usersDetailsService;
     }
 
+    /**
+     * Конфигурация HTTP безопасности.
+     *
+     * @param http объект HttpSecurity для настройки безопасности.
+     * @throws Exception в случае ошибки настройки.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -49,12 +57,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic();
     }
 
+    /**
+     * Конфигурация менеджера аутентификации.
+     *
+     * @param auth объект AuthenticationManagerBuilder для настройки аутентификации.
+     * @throws Exception в случае ошибки настройки.
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(usersDetailsService)
                 .passwordEncoder(getPasswordEncoder());
     }
 
+    /**
+     * Бин для кодировщика паролей.
+     *
+     * @return PasswordEncoder для кодирования паролей.
+     */
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();

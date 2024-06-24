@@ -23,6 +23,11 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 
+
+/**
+ * Контроллер для управления пользователями.
+ */
+
 @Controller
 public class UserController {
     private final UserService userService;
@@ -39,6 +44,13 @@ public class UserController {
         this.localeResolver = localeResolver;
     }
 
+    /**
+     * Обрабатывает запросы на главную страницу.
+     *
+     * @param model   объект Model для передачи данных в представление.
+     * @param request объект HttpServletRequest для получения информации о запросе.
+     * @return имя представления для главной страницы.
+     */
     @GetMapping("/mainPage")
     public String mainPage(Model model, HttpServletRequest request) {
         Locale locale = localeResolver.resolveLocale(request);
@@ -48,7 +60,14 @@ public class UserController {
         return "allUsers/mainPage";
     }
 
-
+    /**
+     * Обрабатывает запросы на страницу пользователя по его ID.
+     *
+     * @param userId         идентификатор пользователя.
+     * @param model          объект Model для передачи данных в представление.
+     * @param authentication объект Authentication для получения данных аутентификации.
+     * @return имя представления для страницы пользователя.
+     */
     @GetMapping("/user/{userId}")
     public String getUserPage(@PathVariable("userId") int userId, Model model,
                               Authentication authentication) {
@@ -61,6 +80,13 @@ public class UserController {
         return "allUsers/userPage";
     }
 
+    /**
+     * Обрабатывает запросы на отображение формы обновления данных текущего пользователя.
+     *
+     * @param model          объект Model для передачи данных в представление.
+     * @param authentication объект Authentication для получения данных аутентификации.
+     * @return имя представления для формы обновления данных пользователя.
+     */
     @GetMapping("/currentUserPage/update")
     public String showUpdateForm(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
@@ -75,6 +101,14 @@ public class UserController {
         return "redirect:/auth/login";
     }
 
+
+    /**
+     * Обрабатывает запросы на отображение страницы текущего пользователя.
+     *
+     * @param model          объект Model для передачи данных в представление.
+     * @param authentication объект Authentication для получения данных аутентификации.
+     * @return имя представления для страницы текущего пользователя.
+     */
     @GetMapping("/currentUserPage")
     public String getCurrentUserPage(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
@@ -89,6 +123,15 @@ public class UserController {
         return "redirect:/auth/login";
     }
 
+
+    /**
+     * Обрабатывает запросы на обновление данных текущего пользователя.
+     *
+     * @param updatedUser    объект User с обновленными данными.
+     * @param bindingResult  объект BindingResult для проверки ошибок валидации.
+     * @param authentication объект Authentication для получения данных аутентификации.
+     * @return перенаправление на страницу текущего пользователя или форму обновления в случае ошибок.
+     */
     @PostMapping("/currentUserPage/update")
     public String updateUser(@ModelAttribute("user") @Valid User updatedUser,
                              BindingResult bindingResult,

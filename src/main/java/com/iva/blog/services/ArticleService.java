@@ -9,6 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Сервисный класс для управления сущностями Article.
+ * Использует ArticleRepository для доступа к данным.
+ */
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;

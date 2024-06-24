@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDateTime;
 
-
+/**
+ * Контроллер для управления комментариями к статьям.
+ */
 @Controller
 public class CommentController {
 
@@ -29,6 +31,14 @@ public class CommentController {
         this.articleService = articleService;
     }
 
+    /**
+     * Обрабатывает GET-запросы для отображения формы добавления комментария.
+     *
+     * @param articleId идентификатор статьи.
+     * @param model     объект Model для передачи данных в представление.
+     * @param principal объект Principal для получения данных аутентификации.
+     * @return имя представления для отображения формы добавления комментария.
+     */
     @GetMapping("/user/article/{articleId}/comment")
     public String showAddCommentForm(@PathVariable("articleId") int articleId,
                                      Model model, Principal principal) {
@@ -42,6 +52,14 @@ public class CommentController {
         return "registeredUser/addComment";
     }
 
+    /**
+     * Обрабатывает POST-запросы для добавления нового комментария.
+     *
+     * @param articleId  идентификатор статьи.
+     * @param commentary объект Commentary, содержащий данные нового комментария.
+     * @param principal  объект Principal для получения данных аутентификации.
+     * @return перенаправление на страницу статьи.
+     */
     @PostMapping("/user/article/{articleId}/comment")
     public String addComment(@PathVariable int articleId,
                              @ModelAttribute Commentary commentary,

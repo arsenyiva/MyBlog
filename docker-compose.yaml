@@ -3,10 +3,11 @@ version: '3.8'
 services:
   mypostgres:
     image: postgres:latest
-    container_name: java-postgres
+    container_name: mypostgres
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: mydatabase
       POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: mypassword
+

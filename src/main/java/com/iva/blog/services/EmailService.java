@@ -5,6 +5,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+/**
+ * Сервисный класс для отправки электронной почты.
+ * Использует JavaMailSender для отправки писем.
+ */
 @Service
 class EmailService {
     private final JavaMailSender javaMailSender;

@@ -9,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Сервисный класс для управления комментариями (Commentary).
+ * Использует CommentRepository для доступа к данным.
+ */
 @Service
 public class CommentService {
 

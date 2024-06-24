@@ -1,4 +1,4 @@
-package com.iva.blog.services;
+package com.iva.blog.security;
 
 import com.iva.blog.models.User;
 import com.iva.blog.repository.UserRepository;

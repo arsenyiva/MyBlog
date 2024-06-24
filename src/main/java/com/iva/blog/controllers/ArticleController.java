@@ -17,6 +17,9 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Контроллер для управления статьями.
+ */
 @Controller
 public class ArticleController {
 
@@ -33,6 +36,13 @@ public class ArticleController {
         this.commentService = commentService;
     }
 
+    /**
+     * Обрабатывает GET-запросы для отображения формы добавления статьи.
+     *
+     * @param model          объект Model для передачи данных в представление.
+     * @param authentication объект Authentication для получения данных аутентификации.
+     * @return имя представления для отображения формы добавления статьи.
+     */
     @GetMapping("/currentUserPage/add")
     public String showAddArticleForm(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
@@ -49,6 +59,13 @@ public class ArticleController {
     }
 
 
+    /**
+     * Обрабатывает POST-запросы для добавления новой статьи.
+     *
+     * @param article        объект Article, содержащий данные новой статьи.
+     * @param authentication объект Authentication для получения данных аутентификации.
+     * @return перенаправление на страницу текущего пользователя.
+     */
     @PostMapping("/currentUserPage/add")
     public String addArticle(@ModelAttribute Article article, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
@@ -65,6 +82,15 @@ public class ArticleController {
         return "redirect:/auth/login";
     }
 
+    /**
+     * Обрабатывает GET-запросы для отображения статьи и её комментариев.
+     *
+     * @param id        идентификатор статьи.
+     * @param userId    идентификатор пользователя.
+     * @param model     объект Model для передачи данных в представление.
+     * @param principal объект Principal для получения данных аутентификации.
+     * @return имя представления для отображения статьи.
+     */
     @GetMapping("user/{userId}/article/{articleId}")
     public String showArticle(@PathVariable("articleId") int id,
                               @PathVariable("userId") int userId,
@@ -82,7 +108,15 @@ public class ArticleController {
         return "allUsers/articlePage";
     }
 
-
+    /**
+     * Обрабатывает GET-запросы для отображения формы обновления статьи.
+     *
+     * @param articleId идентификатор статьи.
+     * @param userId    идентификатор пользователя.
+     * @param model     объект Model для передачи данных в представление.
+     * @param principal объект Principal для получения данных аутентификации.
+     * @return имя представления для отображения формы обновления статьи.
+     */
     @GetMapping("user/{userId}/article/{articleId}/update")
     public String showArticleUpdateForm(@PathVariable("articleId") int articleId,
                                         @PathVariable("userId") int userId,
@@ -98,6 +132,13 @@ public class ArticleController {
         }
     }
 
+    /**
+     * Обрабатывает POST-запросы для обновления статьи.
+     *
+     * @param articleId      идентификатор статьи.
+     * @param updatedArticle объект Article с обновленными данными.
+     * @return перенаправление на страницу текущего пользователя.
+     */
     @PostMapping("/article/{articleId}/update")
     public String updateArticle(@PathVariable("articleId") int articleId,
                                 @ModelAttribute Article updatedArticle) {

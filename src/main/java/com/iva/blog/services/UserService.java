@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Сервисный класс для управления операциями с пользователями.
+ */
 @Service
 @Transactional(readOnly = true)
 public class UserService {

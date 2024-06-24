@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+ * Контроллер для управления действиями администратора.
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -22,6 +25,12 @@ public class AdminController {
         this.userService = userService;
     }
 
+    /**
+     * Обрабатывает GET-запросы на /admin и отображает страницу администратора с списком всех пользователей.
+     *
+     * @param model объект Model для передачи данных в представление.
+     * @return имя представления для отображения.
+     */
     @GetMapping()
     public String adminPage(Model model) {
         List<User> users = userService.findAll();
@@ -29,6 +38,14 @@ public class AdminController {
         return "admin/adminPage";
     }
 
+
+    /**
+     * Обрабатывает POST-запросы для изменения роли пользователя.
+     *
+     * @param role   роль, которую нужно назначить пользователю.
+     * @param userId идентификатор пользователя, роль которого нужно изменить.
+     * @return перенаправление на страницу администратора.
+     */
     @PostMapping("/changeRole")
     public String changeUserRole(@RequestParam("role") String role,
                                  @RequestParam("userId") int userId) {
@@ -40,6 +57,13 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    /**
+     * Обрабатывает POST-запросы для блокировки или разблокировки пользователя.
+     *
+     * @param isBanned флаг, указывающий заблокирован ли пользователь.
+     * @param userId   идентификатор пользователя, которого нужно заблокировать или разблокировать.
+     * @return перенаправление на страницу администратора.
+     */
     @PostMapping("/banOrUnbanUser")
     public String banOrUnbanUser(@RequestParam("Banned") Boolean isBanned,
                                  @RequestParam("userId") int userId) {

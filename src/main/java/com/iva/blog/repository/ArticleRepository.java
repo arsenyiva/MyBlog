@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/**
+ * Репозиторий для сущности Article.
+ */
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
     List<Article> findByUserId(int userId);
 

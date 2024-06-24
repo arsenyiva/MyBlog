@@ -10,6 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
+
+/**
+ * Сервисный класс для выполнения операций регистрации пользователей.
+ * Использует UserRepository для доступа к данным пользователей,
+ * PasswordEncoder для шифрования паролей и EmailService для отправки писем.
+ */
 @Service
 public class RegistrationService {
     private final UserRepository userRepository;
